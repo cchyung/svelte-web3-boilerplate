@@ -1,2 +1,16 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+  import { getAccount, watchAccount, type GetAccountResult } from "@wagmi/core";
+  import { onMount } from "svelte";
+
+  let account: GetAccountResult;
+  onMount(() => {
+    watchAccount(() => {
+      account = getAccount();
+    });
+  });
+</script>
+
+{#if account}
+  <w3m-core-button />
+  <p>{account.address}</p>
+{/if}
